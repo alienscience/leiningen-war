@@ -1,0 +1,81 @@
+
+Leiningen war plugin
+====================
+
+Adds two commands to leiningen:
+
+lein war
+--------
+
+    Create a $PROJECT-$VERSION.war file containing the following directory structure:
+
+    destination        default source     project.clj 
+    ---------------------------------------------------        
+    WEB-INF/web.xml    src/web.xml        :webxml
+    WEB-INF/classes    classes            :compile-path 
+    /                  src/html           :web-content
+    WEB-INF            resources          :resources-path
+
+lein uberwar
+------------
+
+    Create a $PROJECT-$VERSION.war file containing the following directory structure:
+
+    destination        default source     project.clj 
+    ---------------------------------------------------        
+    WEB-INF/web.xml    src/web.xml        :webxml
+    WEB-INF/classes    classes            :compile-path 
+    WEB-INF/lib        lib                :library-path
+    /                  src/html           :web-content
+    WEB-INF            resources          :resources-path
+   Archetypes listed in :dev-dependencies will not copied into the war file
+
+
+Simple Example
+==============
+
+    (defproject example "0.0.1"
+      :dependencies [[org.clojure/clojure "1.1.0"]
+                     [org.clojure/clojure-contrib "1.1.0-master-SNAPSHOT"]]
+      :dev-dependencies [[leiningen/lein-swank "1.0.0-SNAPSHOT"]
+                         [autodoc "0.7.0"]])
+
+   lein war will create a war file with the following structure:
+
+   WEB-INF/
+   WEB-INF/web.xml   <--- taken from src/web.xml
+   WEB-INF/classes   <---- taken from classes
+   index.html        <---- taken from src/html/index.html
+
+   lein uberwar will create a similar directory structure with the addition:
+   
+   WEB-INF/lib       <----  taken from lib
+
+Overiding Defaults
+==================
+    
+    (defproject example "0.0.1"
+      :dependencies [[org.clojure/clojure "1.1.0"]
+                     [org.clojure/clojure-contrib "1.1.0-master-SNAPSHOT"]]
+      :dev-dependencies [[leiningen/lein-swank "1.0.0-SNAPSHOT"]
+                         [autodoc "0.7.0"]]
+      :webxml "war/example.xml"
+      :compile-path  "build"
+      :library-path  "libs"
+      :web-content   "html"
+      :resources-path "war/resources")
+
+   lein war will create a war file with the following structure:
+
+   WEB-INF/
+   WEB-INF/web.xml   <--- taken from war/example.xml
+   WEB-INF/classes   <---- taken from build
+   index.html        <---- taken from html/index.html
+   WEB-INF/templates <---- taken from war/resources/templates
+
+   lein uberwar will create a similar directory structure with the addition:
+   
+   WEB-INF/lib       <----  taken from libs
+
+
+    
