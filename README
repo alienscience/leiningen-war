@@ -83,5 +83,8 @@ Overiding Defaults
    
    WEB-INF/lib       <----  taken from libs
 
+Google App Engine
+=================
 
-    
+You can optionally include a src/appengine-web.xml file or specify one as :appengine-webxml in the project.
+

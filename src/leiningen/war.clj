@@ -78,11 +78,11 @@ file object."
    (ByteArrayInputStream.
     (to-byte-array 
      (str 
-      "Manifest-Version: 1.0\n"
-      "Created-By: Leiningen War Plugin"
-      (str "Built-By: " (System/getProperty "user.name") "\n")
-      (str "Build-Jdk: " (System/getProperty "java.version") "\n")
-      "\n")))))
+      "Manifest-Version: 1.0" \newline
+      "Created-By: Leiningen War Plugin" \newline
+      "Built-By: " (System/getProperty "user.name") \newline
+      "Build-Jdk: " (System/getProperty "java.version") \newline
+      \newline)))))
 
 (defn create-jar [path]
   (JarOutputStream. (BufferedOutputStream. (FileOutputStream. path))
@@ -109,6 +109,11 @@ file object."
   [project]
   (or (:webxml project) "src/web.xml"))
 
+(defn appengine-webxml
+  "Returns the path of the web.xml to use in the war file"
+  [project]
+  (or (:webxml project) "src/appengine-web.xml"))
+
 (defn web-content 
   "Returns the path of the directories containing web 
  content that will be put into the war file"
@@ -128,11 +133,13 @@ file object."
    WEB-INF/web.xml    src/web.xml        :webxml
    WEB-INF/classes    classes            :compile-path 
    /                  src/html           :web-content
-   WEB-INF            resources          :resources-path"
+   WEB-INF            resources          :resources-path
+   You can optionally include a src/appengine-web.xml file or specify one as :appengine-webxml in the project for use with Google App Engine."
   [project & args]
   (check-exists (webxml project))
   (jar (war-name project)
        ["WEB-INF/" (:resources-path project)]
        ["WEB-INF/web.xml" (webxml project)]
+       ["WEB-INF/appengine-web.xml" (appengine-webxml project)]
        ["WEB-INF/classes/" (:compile-path project)]
        [(web-content project)]))
