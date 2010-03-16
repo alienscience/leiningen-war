@@ -6,7 +6,10 @@ This plugin is available at http://clojars.org/
 
   :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.1"]]
 
-Adds two commands to leiningen:
+An example application using the plugin is at:
+   http://github.com/maacl/lein-war-test
+
+This plugin adds two commands to leiningen:
 
 lein war
 --------
