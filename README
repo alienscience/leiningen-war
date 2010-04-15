@@ -4,7 +4,7 @@ Leiningen war plugin
 
 This plugin is available at http://clojars.org/
 
-  :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.1"]]
+  :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.2"]]
 
 An example application using the plugin is at:
    http://github.com/maacl/lein-war-test
@@ -44,7 +44,7 @@ Simple Example
     (defproject example "0.0.1"
       :dependencies [[org.clojure/clojure "1.1.0"]
                      [org.clojure/clojure-contrib "1.1.0-master-SNAPSHOT"]]
-      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.1"]
+      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.2"]
                          [leiningen/lein-swank "1.0.0-SNAPSHOT"]
                          [autodoc "0.7.0"]])
 
@@ -65,7 +65,7 @@ Overiding Defaults
     (defproject example "0.0.1"
       :dependencies [[org.clojure/clojure "1.1.0"]
                      [org.clojure/clojure-contrib "1.1.0-master-SNAPSHOT"]]
-      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.1"]
+      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.2"]
                          [leiningen/lein-swank "1.0.0-SNAPSHOT"]
                          [autodoc "0.7.0"]]
       :webxml "war/example.xml"
