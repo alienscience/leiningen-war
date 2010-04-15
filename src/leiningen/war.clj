@@ -88,11 +88,11 @@ file object."
    (ByteArrayInputStream.
     (to-byte-array 
      (str 
-      "Manifest-Version: 1.0\n"
-      "Created-By: Leiningen War Plugin"
-      (str "Built-By: " (System/getProperty "user.name") "\n")
-      (str "Build-Jdk: " (System/getProperty "java.version") "\n")
-      "\n")))))
+      "Manifest-Version: 1.0" \newline
+      "Created-By: Leiningen War Plugin" \newline
+      "Built-By: " (System/getProperty "user.name") \newline
+      "Build-Jdk: " (System/getProperty "java.version") \newline
+      \newline)))))
 
 (defn create-jar [path]
   (JarOutputStream. (BufferedOutputStream. (FileOutputStream. path))
@@ -120,6 +120,11 @@ file object."
   [project]
   (or (:webxml project) "src/web.xml"))
 
+(defn appengine-webxml
+  "Returns the path of the web.xml to use in the war file"
+  [project]
+  (or (:webxml project) "src/appengine-web.xml"))
+
 (defn web-content 
   "Returns the path of the directories containing web 
  content that will be put into the war file"
@@ -134,16 +139,18 @@ file object."
  
 (defn war
   "Create a $PROJECT-$VERSION.war file containing the following directory structure:
-   destination        default source     project.clj 
-   ---------------------------------------------------        
-   WEB-INF/web.xml    src/web.xml        :webxml
-   WEB-INF/classes    classes            :compile-path 
-   /                  src/html           :web-content
-   WEB-INF/classes    resources          :resources-path"
+   destination                 default source         project.clj 
+   ---------------------------------------------------------------------        
+   WEB-INF/web.xml             src/web.xml            :webxml
+   WEB-INF/appengine-web.xml   src/appengine-web.xml  :appengine-webxml
+   WEB-INF/classes             classes                :compile-path 
+   /                           src/html               :web-content
+   WEB-INF/classes             resources              :resources-path"
   [project & args]
   (check-exists (webxml project))
   (jar (war-name project)
        ["WEB-INF/web.xml" (webxml project)]
+       ["WEB-INF/appengine-web.xml" (appengine-webxml project)]
        ["WEB-INF/classes/" (:compile-path project)]
        ["WEB-INF/classes/" (:resources-path project)]
        [(web-content project)]))

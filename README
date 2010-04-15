@@ -14,29 +14,32 @@ This plugin adds two commands to leiningen:
 lein war
 --------
 
-    Create a $PROJECT-$VERSION.war file containing the following directory structure:
+  Create a $PROJECT-$VERSION.war file containing the following directory structure:
 
-    destination        default source     project.clj 
-    ---------------------------------------------------        
-    WEB-INF/web.xml    src/web.xml        :webxml
-    WEB-INF/classes    classes            :compile-path 
-    /                  src/html           :web-content
-    WEB-INF/classes    resources          :resources-path
+  destination                 default source         project.clj 
+  ---------------------------------------------------------------------        
+  WEB-INF/web.xml             src/web.xml            :webxml
+  WEB-INF/appengine-web.xml   src/appengine-web.xml  :appengine-webxml
+  WEB-INF/classes             classes                :compile-path 
+  /                           src/html               :web-content
+  WEB-INF/classes             resources              :resources-path
+
 
 lein uberwar
 ------------
 
-    Create a $PROJECT-$VERSION.war file containing the following directory structure:
+  Create a $PROJECT-$VERSION.war file containing the following directory structure:
 
-    destination        default source     project.clj 
-    ---------------------------------------------------        
-    WEB-INF/web.xml    src/web.xml        :webxml
-    WEB-INF/classes    classes            :compile-path 
-    WEB-INF/lib        lib                :library-path
-    /                  src/html           :web-content
-    WEB-INF/classes    resources          :resources-path
-   Artifacts listed in :dev-dependencies will not copied into the war file
+  destination                   default source              project.clj 
+  ----------------------------------------------------------------------------        
+  WEB-INF/web.xml               src/web.xml                 :webxml
+  WEB-INF/appengine-web.xml     src/appengine-web.xml       :appengine-webxml
+  WEB-INF/classes               classes                     :compile-path 
+  WEB-INF/lib                   lib                         :library-path
+  /                             src/html                    :web-content
+  WEB-INF/classes               resources                   :resources-path
 
+  Artifacts listed in :dev-dependencies will not copied into the war file
 
 Simple Example
 ==============
@@ -86,4 +89,8 @@ Overiding Defaults
    
    WEB-INF/lib               <----  taken from libs
 
+Google App Engine
+=================
+
+You can optionally include a src/appengine-web.xml file or specify one as :appengine-webxml in the project.
 

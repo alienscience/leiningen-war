@@ -5,6 +5,7 @@
   - Resources moved to WEB-INF/classes so that they can be read with
     ClassLoader.getResource() and are therefore accessible when running 
     outside a servlet container.
+  - App engine support [timothypratley]
 
 0.0.1 2010-01-21 
   - Initial release 
