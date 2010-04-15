@@ -42,14 +42,14 @@
    WEB-INF/classes    classes            :compile-path 
    WEB-INF/lib        lib                :library-path
    /                  src/html           :web-content
-   WEB-INF            resources          :resources-path
-  Archetypes listed in :dev-dependencies will not copied into the war file"
+   WEB-INF/classes    resources          :resources-path
+  Artifacts listed in :dev-dependencies will not copied into the war file"
   [project & args]
   (check-exists (webxml project))
   (check-exists (:library-path project))
   (jar (war-name project)
-       ["WEB-INF/" (:resources-path project)]
        ["WEB-INF/web.xml" (webxml project)]
        [(web-content project)]
        ["WEB-INF/lib/" (:library-path project) (dependency-jars project)]
-       ["WEB-INF/classes/" (:compile-path project)]))
+       ["WEB-INF/classes/" (:compile-path project)]
+       ["WEB-INF/classes/" (:resources-path project)]))

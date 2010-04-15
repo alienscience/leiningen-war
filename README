@@ -21,7 +21,7 @@ lein war
     WEB-INF/web.xml    src/web.xml        :webxml
     WEB-INF/classes    classes            :compile-path 
     /                  src/html           :web-content
-    WEB-INF            resources          :resources-path
+    WEB-INF/classes    resources          :resources-path
 
 lein uberwar
 ------------
@@ -34,8 +34,8 @@ lein uberwar
     WEB-INF/classes    classes            :compile-path 
     WEB-INF/lib        lib                :library-path
     /                  src/html           :web-content
-    WEB-INF            resources          :resources-path
-   Archetypes listed in :dev-dependencies will not copied into the war file
+    WEB-INF/classes    resources          :resources-path
+   Artifacts listed in :dev-dependencies will not copied into the war file
 
 
 Simple Example
@@ -77,14 +77,13 @@ Overiding Defaults
    lein war will create a war file with the following structure:
 
    WEB-INF/
-   WEB-INF/web.xml   <--- taken from war/example.xml
-   WEB-INF/classes   <---- taken from build
-   index.html        <---- taken from html/index.html
-   WEB-INF/templates <---- taken from war/resources/templates
+   WEB-INF/web.xml           <--- taken from war/example.xml
+   WEB-INF/classes           <---- taken from build
+   index.html                <---- taken from html/index.html
+   WEB-INF/classes/templates <---- taken from war/resources/templates
 
    lein uberwar will create a similar directory structure with the addition:
    
-   WEB-INF/lib       <----  taken from libs
+   WEB-INF/lib               <----  taken from libs
 
 
-    

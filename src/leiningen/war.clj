@@ -22,15 +22,25 @@ file object."
   [path] 
   (file-seq (file path)))
 
+(def dirs-in-jar)
+
+(defn add-dir-to-jar 
+  "Adds the given directory to the given jar output stream"
+  [jar-os dir]
+  (if-not (contains? dirs-in-jar dir)
+    (do
+      (set! dirs-in-jar (assoc dirs-in-jar dir true))
+      (.putNextEntry jar-os (JarEntry. dir)))))
+  
 (defn add-file-to-jar
   "Adds a file/directory to the given jar output stream"
   [jar-os f dest-path]
   (cond (has-trailing-slash dest-path)
-        (.putNextEntry jar-os (JarEntry. dest-path))
+        (add-dir-to-jar jar-os dest-path)
         ;;--------
-        (.isDirectory f)
+        (.isDirectory f) 
         (let [dest-dir (no-double-slash (str dest-path "/"))]
-          (.putNextEntry jar-os (JarEntry. dest-dir)))
+          (add-dir-to-jar jar-os dest-dir))
         ;;--------
         (.exists f)
         (do
@@ -96,8 +106,9 @@ file object."
    [dest-path? file]" 
   [dest & entries] 
   (with-open [jar-os (create-jar dest)]
-    (doseq [entry entries]
-      (apply add-entry-to-jar jar-os entry))))
+    (binding [dirs-in-jar {}]
+      (doseq [entry entries]
+        (apply add-entry-to-jar jar-os entry)))))
 
 (defn war-name
   "Returns the name of the war file to create"
@@ -128,11 +139,11 @@ file object."
    WEB-INF/web.xml    src/web.xml        :webxml
    WEB-INF/classes    classes            :compile-path 
    /                  src/html           :web-content
-   WEB-INF            resources          :resources-path"
+   WEB-INF/classes    resources          :resources-path"
   [project & args]
   (check-exists (webxml project))
   (jar (war-name project)
-       ["WEB-INF/" (:resources-path project)]
        ["WEB-INF/web.xml" (webxml project)]
        ["WEB-INF/classes/" (:compile-path project)]
+       ["WEB-INF/classes/" (:resources-path project)]
        [(web-content project)]))
