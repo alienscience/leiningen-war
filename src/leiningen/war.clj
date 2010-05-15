@@ -1,7 +1,7 @@
 (ns leiningen.war
   "Leiningen war plugin"
   (:use [clojure.contrib.duck-streams :only [to-byte-array copy]]
-        [clojure.contrib.str-utils :only [str-join re-sub]]
+        [clojure.contrib.str-utils :only [str-join re-sub re-gsub]]
         [clojure.contrib.java-utils :only [file]])
   (:import [java.util.jar Manifest JarEntry JarOutputStream]
            [java.io BufferedOutputStream 
@@ -12,7 +12,7 @@
 (defn no-trailing-slash [path] (re-sub #"/$" "" path))
 (defn no-leading-slash [path] (re-sub #"^/" "" path))
 (defn no-double-slash [path] (re-sub #"//" "/" path))
-(defn unix-path [path] (re-sub #"\\" "/" path))
+(defn unix-path [path] (re-gsub #"\\" "/" path))
 (defn has-trailing-slash [path] (re-find #"/$" path))
 
 (defn find-files 
@@ -52,7 +52,7 @@ file object."
  top level jar path, the directory being added to the jar and
  the path of the file being added."
   [jar-path directory file-path]
-  (let [dir-re (re-pattern (str "^" (no-trailing-slash directory)))
+  (let [dir-re (re-pattern (str "^" (no-trailing-slash (unix-path directory))))
         dest-path (unix-path file-path)
         dest-path (re-sub dir-re jar-path dest-path)
         dest-path (no-leading-slash dest-path)
