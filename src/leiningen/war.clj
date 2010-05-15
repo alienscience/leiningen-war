@@ -121,9 +121,9 @@ file object."
   (or (:webxml project) "src/web.xml"))
 
 (defn appengine-webxml
-  "Returns the path of the web.xml to use in the war file"
+  "Returns the path of the appengine-web.xml to use in the war file"
   [project]
-  (or (:webxml project) "src/appengine-web.xml"))
+  (or (:appengine-webxml project) "src/appengine-web.xml"))
 
 (defn web-content 
   "Returns the path of the directories containing web 
