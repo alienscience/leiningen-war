@@ -53,10 +53,11 @@ file object."
  the path of the file being added."
   [jar-path directory file-path]
   (let [dir-re (re-pattern (str "^" (no-trailing-slash (unix-path directory))))
-        dest-path (unix-path file-path)
-        dest-path (re-sub dir-re jar-path dest-path)
-        dest-path (no-leading-slash dest-path)
-        dest-path (no-double-slash dest-path)]
+        dest-path (->> file-path
+                       (unix-path)
+                       (re-sub dir-re jar-path)
+                       (no-leading-slash)
+                       (no-double-slash))]
       dest-path))
  
 (defn add-tree-to-jar 
