@@ -1,4 +1,7 @@
 
+0.0.3 2010-05-17
+  - Incorporated bug fixes from Punyashloka Biswal
+    (Windows path, Contrib version, appengine-web.xml)
 0.0.2 2010-04-15
   - Small changes to documentation.
   - Supports overlapping directory structures.
@@ -9,3 +12,4 @@
 
 0.0.1 2010-01-21 
   - Initial release 
+
