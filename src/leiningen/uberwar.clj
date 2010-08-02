@@ -7,32 +7,24 @@
   [re s]
   (filter #(re-find re %) s))
 
+(defn re-remove 
+  "Uses the given regular expression to filter a sequence.
+   Returns strings that do not match the given re."
+  [re s]
+  (filter #(not (re-find re %)) s))
+
 (defn find-jars
   "Returns the path of all the jars in the given path"
   [dir]
   (re-filter #".jar$" (map str (find-files dir))))
 
-(defn dev-artifacts
-  "Returns the artifact names of the dev-dependencies of 
- the given project"
-  [project]
-  (map #(re-find #"[^/]+$" %)
-       (map #(str (first %)) (:dev-dependencies project))))
-
-(defn matches-a-pattern
-  "Indicates if a string contains any of the patterns 
- in the given sequence"
-  [s patterns]
-  (some #(re-find  % s) patterns))
-
 (defn dependency-jars
   "Returns the jar files that are dependencies of a project.
- Removes the top level dev dependencies in case 'lein clean'
- has not been run."
+ Removes the dev dependencies in case 'lein clean' has not been run."
   [project]
-  (let [dev-patterns (map re-pattern (dev-artifacts project))]
-    (filter #(not (matches-a-pattern % dev-patterns))
-            (find-jars (:library-path project)))))
+  (let [lib-path (no-trailing-slash (:library-path project))
+        dev-pattern (re-pattern (str lib-path "/dev/"))]
+    (re-remove dev-pattern (find-jars (:library-path project)))))
 
 (defn uberwar
   "Create a $PROJECT-$VERSION.war file containing the following directory structure:
@@ -44,6 +36,7 @@
    WEB-INF/lib                   lib                         :library-path
    /                             src/html                    :web-content
    WEB-INF/classes               resources                   :resources-path
+   WEB-INF/classes               src                         :source-path
   Artifacts listed in :dev-dependencies will not copied into the war file"
   [project & args]
   (check-exists (webxml project))
@@ -54,4 +47,5 @@
        [(web-content project)]
        ["WEB-INF/lib/" (:library-path project) (dependency-jars project)]
        ["WEB-INF/classes/" (:compile-path project)]
-       ["WEB-INF/classes/" (:resources-path project)]))
+       ["WEB-INF/classes/" (:resources-path project)]
+       ["WEB-INF/classes/" (:source-path project)]))

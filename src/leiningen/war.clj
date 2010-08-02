@@ -137,7 +137,7 @@ file object."
   [f]
   (if (not (.exists (file f))) 
     (println "[WARNING]" (str f) "does not exist.")))
- 
+
 (defn war
   "Create a $PROJECT-$VERSION.war file containing the following directory structure:
    destination                 default source         project.clj 
@@ -146,7 +146,8 @@ file object."
    WEB-INF/appengine-web.xml   src/appengine-web.xml  :appengine-webxml
    WEB-INF/classes             classes                :compile-path 
    /                           src/html               :web-content
-   WEB-INF/classes             resources              :resources-path"
+   WEB-INF/classes             resources              :resources-path
+   WEB-INF/classes             src                    :source-path"
   [project & args]
   (check-exists (webxml project))
   (jar (war-name project)
@@ -154,4 +155,5 @@ file object."
        ["WEB-INF/appengine-web.xml" (appengine-webxml project)]
        ["WEB-INF/classes/" (:compile-path project)]
        ["WEB-INF/classes/" (:resources-path project)]
+       ["WEB-INF/classes/" (:source-path project)]
        [(web-content project)]))

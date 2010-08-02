@@ -4,7 +4,7 @@ Leiningen war plugin
 
 This plugin is available at http://clojars.org/
 
-  :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.3"]]
+  :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.4"]]
 
 An example application using the plugin is at:
    http://github.com/maacl/lein-war-test
@@ -23,6 +23,7 @@ lein war
   WEB-INF/classes             classes                :compile-path 
   /                           src/html               :web-content
   WEB-INF/classes             resources              :resources-path
+  WEB-INF/classes             source                 :source-path
 
 
 lein uberwar
@@ -38,6 +39,7 @@ lein uberwar
   WEB-INF/lib                   lib                         :library-path
   /                             src/html                    :web-content
   WEB-INF/classes               resources                   :resources-path
+  WEB-INF/classes               source                      :source-path
 
   Artifacts listed in :dev-dependencies will not copied into the war file
 
@@ -47,7 +49,7 @@ Simple Example
     (defproject example "0.0.1"
       :dependencies [[org.clojure/clojure "1.1.0"]
                      [org.clojure/clojure-contrib "1.1.0"]]
-      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.3"]
+      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.4"]
                          [leiningen/lein-swank "1.0.0-SNAPSHOT"]
                          [autodoc "0.7.0"]])
 
@@ -68,7 +70,7 @@ Overiding Defaults
     (defproject example "0.0.1"
       :dependencies [[org.clojure/clojure "1.1.0"]
                      [org.clojure/clojure-contrib "1.1.0"]]
-      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.3"]
+      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.4"]
                          [leiningen/lein-swank "1.0.0-SNAPSHOT"]
                          [autodoc "0.7.0"]]
       :webxml "war/example.xml"
