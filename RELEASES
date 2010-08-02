@@ -1,4 +1,6 @@
 
+0.0.4 2010-08-02
+  - Added source files to WEB-INF/classes
 0.0.3 2010-05-17
   - Incorporated bug fixes from Punyashloka Biswal
     (Windows path, Contrib version, appengine-web.xml)
