@@ -22,8 +22,7 @@
   "Returns the jar files that are dependencies of a project.
  Removes the dev dependencies in case 'lein clean' has not been run."
   [project]
-  (let [lib-path (no-trailing-slash (:library-path project))
-        dev-pattern (re-pattern (str lib-path "/dev/"))]
+  (let [dev-pattern #"[\\/]dev[\\/][^\\/]+\.jar"]
     (re-remove dev-pattern (find-jars (:library-path project)))))
 
 (defn uberwar

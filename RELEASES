@@ -1,4 +1,6 @@
 
+0.0.5 2010-08-03
+  - Fixed fatal error when removing dev dependencies under windows
 0.0.4 2010-08-02
   - Added source files to WEB-INF/classes
 0.0.3 2010-05-17
