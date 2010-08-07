@@ -35,17 +35,18 @@ file object."
 (defn add-file-to-jar
   "Adds a file/directory to the given jar output stream"
   [jar-os f dest-path]
-  (cond (has-trailing-slash dest-path)
-        (add-dir-to-jar jar-os dest-path)
-        ;;--------
-        (.isDirectory f) 
-        (let [dest-dir (no-double-slash (str dest-path "/"))]
-          (add-dir-to-jar jar-os dest-dir))
-        ;;--------
-        (.exists f)
-        (do
-          (.putNextEntry jar-os (JarEntry. dest-path))
-          (copy f jar-os))))
+  (when-not (empty? dest-path)
+    (cond (has-trailing-slash dest-path)
+	  (add-dir-to-jar jar-os dest-path)
+	  ;;--------
+	  (.isDirectory f)
+	  (let [dest-dir (no-double-slash (str dest-path "/"))]
+	    (add-dir-to-jar jar-os dest-dir))
+	  ;;--------
+	  (.exists f)
+	  (do
+	    (.putNextEntry jar-os (JarEntry. dest-path))
+	    (copy f jar-os)))))
 
 (defn jar-destination
   "Returns the destination path in a jar file when given the
