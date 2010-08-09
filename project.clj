@@ -1,4 +1,4 @@
-(defproject uk.org.alienscience/leiningen-war "0.0.5"
+(defproject uk.org.alienscience/leiningen-war "0.0.6"
   :description "Leiningen war plugin."
   :namespaces [leiningen.war leiningen.uberwar]
   :dependencies []
