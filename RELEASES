@@ -1,3 +1,5 @@
+0.0.7 2010-08-10
+  - Removed AOT compiled classes to work across versions of clojure
 0.0.6 2010-08-09
   - Fixed '/' path within WAR file [jeroen vloothuis]
 0.0.5 2010-08-03
