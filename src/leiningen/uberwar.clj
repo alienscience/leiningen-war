@@ -30,7 +30,6 @@
    destination                   default source              project.clj 
    ----------------------------------------------------------------------------        
    WEB-INF/web.xml               src/web.xml                 :webxml
-   WEB-INF/appengine-web.xml     src/appengine-web.xml       :appengine-webxml
    WEB-INF/classes               classes                     :compile-path 
    WEB-INF/lib                   lib                         :library-path
    /                             src/html                    :web-content
@@ -42,7 +41,6 @@
   (check-exists (:library-path project))
   (jar (war-name project)
        ["WEB-INF/web.xml" (webxml project)]
-       ["WEB-INF/appengine-web.xml" (appengine-webxml project)]
        [(web-content project)]
        ["WEB-INF/lib/" (:library-path project) (dependency-jars project)]
        ["WEB-INF/classes/" (:compile-path project)]

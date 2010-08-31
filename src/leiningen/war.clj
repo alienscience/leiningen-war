@@ -122,11 +122,6 @@ file object."
   [project]
   (or (:webxml project) "src/web.xml"))
 
-(defn appengine-webxml
-  "Returns the path of the appengine-web.xml to use in the war file"
-  [project]
-  (or (:appengine-webxml project) "src/appengine-web.xml"))
-
 (defn web-content 
   "Returns the path of the directories containing web 
  content that will be put into the war file"
@@ -144,7 +139,6 @@ file object."
    destination                 default source         project.clj 
    ---------------------------------------------------------------------        
    WEB-INF/web.xml             src/web.xml            :webxml
-   WEB-INF/appengine-web.xml   src/appengine-web.xml  :appengine-webxml
    WEB-INF/classes             classes                :compile-path 
    /                           src/html               :web-content
    WEB-INF/classes             resources              :resources-path
@@ -153,7 +147,6 @@ file object."
   (check-exists (webxml project))
   (jar (war-name project)
        ["WEB-INF/web.xml" (webxml project)]
-       ["WEB-INF/appengine-web.xml" (appengine-webxml project)]
        ["WEB-INF/classes/" (:compile-path project)]
        ["WEB-INF/classes/" (:resources-path project)]
        ["WEB-INF/classes/" (:source-path project)]
