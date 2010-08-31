@@ -9,6 +9,9 @@ This plugin is available at http://clojars.org/
 An example application using the plugin is at:
    http://github.com/maacl/lein-war-test
 
+This plugin creates standard war files for use with java web application servers 
+and is not useful when developing for the Google App Engine. 
+
 This plugin adds two commands to leiningen:
 
 lein war
@@ -19,7 +22,6 @@ lein war
   destination                 default source         project.clj 
   ---------------------------------------------------------------------        
   WEB-INF/web.xml             src/web.xml            :webxml
-  WEB-INF/appengine-web.xml   src/appengine-web.xml  :appengine-webxml
   WEB-INF/classes             classes                :compile-path 
   /                           src/html               :web-content
   WEB-INF/classes             resources              :resources-path
@@ -34,7 +36,6 @@ lein uberwar
   destination                   default source              project.clj 
   ----------------------------------------------------------------------------        
   WEB-INF/web.xml               src/web.xml                 :webxml
-  WEB-INF/appengine-web.xml     src/appengine-web.xml       :appengine-webxml
   WEB-INF/classes               classes                     :compile-path 
   WEB-INF/lib                   lib                         :library-path
   /                             src/html                    :web-content
@@ -91,8 +92,4 @@ Overiding Defaults
    
    WEB-INF/lib               <----  taken from libs
 
-Google App Engine
-=================
-
-You can optionally include a src/appengine-web.xml file or specify one as :appengine-webxml in the project.
 
