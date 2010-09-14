@@ -18,7 +18,7 @@
      <servlet-name>~{servlet-name}</servlet-name>
      <servlet-class>~{servlet-class}</servlet-class>
   </servlet>
-  <!-- Mapped to handle all urls by default -->
+  <!-- Servlet is mapped to / by default  -->
   <servlet-mapping>
      <servlet-name>~{servlet-name}</servlet-name>
      <url-pattern>/*</url-pattern>
@@ -54,7 +54,9 @@
 (defn web-xml
   "Create a web.xml file if one does not already exist.
    By default the file is created in src/web.xml but this can be overidden
-   by setting :webxml in project.clj."
+   by setting :webxml in project.clj.
+   The servlet class is assumed to be the first entry in the
+   :aot setting given in project.clj."
   [project & args]
   (let [pth (webxml-path project)]
     (if (.exists (file pth))
