@@ -1,6 +1,7 @@
 (ns leiningen.uberwar
   "Leiningen uberwar plugin"
-  (:use leiningen.war))
+  (:use leiningen.war)
+  (:use leiningen.web-xml))
 
 (defn re-filter 
   "Uses the given regular expression to filter a sequence"
@@ -30,7 +31,6 @@
    destination                   default source              project.clj 
    ----------------------------------------------------------------------------        
    WEB-INF/web.xml               src/web.xml                 :webxml
-   WEB-INF/appengine-web.xml     src/appengine-web.xml       :appengine-webxml
    WEB-INF/classes               classes                     :compile-path 
    WEB-INF/lib                   lib                         :library-path
    /                             src/html                    :web-content
@@ -38,11 +38,10 @@
    WEB-INF/classes               src                         :source-path
   Artifacts listed in :dev-dependencies will not copied into the war file"
   [project & args]
-  (check-exists (webxml project))
+  (autocreate-webxml project)
   (check-exists (:library-path project))
   (jar (war-name project)
-       ["WEB-INF/web.xml" (webxml project)]
-       ["WEB-INF/appengine-web.xml" (appengine-webxml project)]
+       ["WEB-INF/web.xml" (webxml-path project)]
        [(web-content project)]
        ["WEB-INF/lib/" (:library-path project) (dependency-jars project)]
        ["WEB-INF/classes/" (:compile-path project)]
