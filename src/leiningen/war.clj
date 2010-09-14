@@ -3,6 +3,7 @@
   (:use [clojure.contrib.duck-streams :only [to-byte-array copy]]
         [clojure.contrib.str-utils :only [str-join re-sub re-gsub]]
         [clojure.contrib.java-utils :only [file]])
+  (:use leiningen.web-xml)
   (:import [java.util.jar Manifest JarEntry JarOutputStream]
            [java.io BufferedOutputStream 
                     FileOutputStream 
@@ -117,10 +118,6 @@ file object."
   [project]
   (str (:name project) "-" (:version project) ".war"))
 
-(defn webxml
-  "Returns the path of the web.xml to use in the war file"
-  [project]
-  (or (:webxml project) "src/web.xml"))
 
 (defn web-content 
   "Returns the path of the directories containing web 
@@ -144,9 +141,9 @@ file object."
    WEB-INF/classes             resources              :resources-path
    WEB-INF/classes             src                    :source-path"
   [project & args]
-  (check-exists (webxml project))
+  (autocreate-webxml project)
   (jar (war-name project)
-       ["WEB-INF/web.xml" (webxml project)]
+       ["WEB-INF/web.xml" (webxml-path project)]
        ["WEB-INF/classes/" (:compile-path project)]
        ["WEB-INF/classes/" (:resources-path project)]
        ["WEB-INF/classes/" (:source-path project)]
