@@ -4,6 +4,7 @@
         [clojure.contrib.str-utils :only [str-join re-sub re-gsub]]
         [clojure.contrib.java-utils :only [file]])
   (:use leiningen.web-xml)
+  (:require [leiningen.compile :as compile])
   (:import [java.util.jar Manifest JarEntry JarOutputStream]
            [java.io BufferedOutputStream 
                     FileOutputStream 
@@ -142,6 +143,7 @@ file object."
    WEB-INF/classes             src                    :source-path"
   [project & args]
   (autocreate-webxml project)
+  (compile/compile project)
   (jar (war-name project)
        ["WEB-INF/web.xml" (webxml-path project)]
        ["WEB-INF/classes/" (:compile-path project)]

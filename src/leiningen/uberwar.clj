@@ -1,5 +1,6 @@
 (ns leiningen.uberwar
   "Leiningen uberwar plugin"
+  (:require [leiningen.compile :as compile])
   (:use leiningen.war)
   (:use leiningen.web-xml))
 
@@ -39,6 +40,7 @@
   Artifacts listed in :dev-dependencies will not copied into the war file"
   [project & args]
   (autocreate-webxml project)
+  (compile/compile project)
   (check-exists (:library-path project))
   (jar (war-name project)
        ["WEB-INF/web.xml" (webxml-path project)]
