@@ -1,3 +1,7 @@
+0.0.9 2010-10-12
+  - Compiles project before putting into war [Thomas Lee]
+0.0.8 2010-09-14
+  - Creates web.xml when it doesn't exist
 0.0.7 2010-08-10
   - Removed AOT compiled classes to work across versions of clojure
 0.0.6 2010-08-09

@@ -40,8 +40,8 @@
   Artifacts listed in :dev-dependencies will not copied into the war file"
   [project & args]
   (autocreate-webxml project)
-  (compile/compile project)
   (check-exists (:library-path project))
+  (compile/compile project)
   (jar (war-name project)
        ["WEB-INF/web.xml" (webxml-path project)]
        [(web-content project)]
