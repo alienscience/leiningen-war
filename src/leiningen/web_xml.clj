@@ -12,7 +12,7 @@
 (defn- generate-webxml
   "Returns the xml for a web.xml file."
   [servlet-name servlet-class]
-  (<< "<webapp>
+  (<< "<web-app>
   <!-- Servlet class taken from first :aot namespace -->
   <servlet>
      <servlet-name>~{servlet-name}</servlet-name>
@@ -23,7 +23,7 @@
      <servlet-name>~{servlet-name}</servlet-name>
      <url-pattern>/*</url-pattern>
   </servlet-mapping>
-</webapp>\n"))
+</web-app>\n"))
 
 (defn- required-key
   "Extracts a compulsory key from a project definition."
