@@ -16,6 +16,7 @@
 (defn no-double-slash [path] (re-sub #"//" "/" path))
 (defn unix-path [path] (re-gsub #"\\" "/" path))
 (defn has-trailing-slash [path] (re-find #"/$" path))
+(defn scratch-file? [path] (re-find #"[~#]$" path))
 
 (defn find-files 
   "Returns all files in and below the given directory. If 
@@ -33,7 +34,15 @@ file object."
     (do
       (set! dirs-in-jar (assoc dirs-in-jar dir true))
       (.putNextEntry jar-os (JarEntry. dir)))))
-  
+
+(defn valid-file?
+  "Indicates if the given file is suitable for including in a jar"
+  [f]
+  (if (and (.exists f)
+           (not (scratch-file? (str f))))
+    true
+    false))
+
 (defn add-file-to-jar
   "Adds a file/directory to the given jar output stream"
   [jar-os f dest-path]
@@ -45,7 +54,7 @@ file object."
 	  (let [dest-dir (no-double-slash (str dest-path "/"))]
 	    (add-dir-to-jar jar-os dest-dir))
 	  ;;--------
-	  (.exists f)
+	  (valid-file? f)
 	  (do
 	    (.putNextEntry jar-os (JarEntry. dest-path))
 	    (copy f jar-os)))))
@@ -133,7 +142,10 @@ file object."
     (println "[WARNING]" (str f) "does not exist.")))
 
 (defn war
-  "Create a $PROJECT-$VERSION.war file containing the following directory structure:
+  "This command does not include dependencies in the war file and is intended for cases
+   where the servlet container classpath is setup manually.
+
+   Create a $PROJECT-$VERSION.war file containing the following directory structure:
    destination                 default source         project.clj 
    ---------------------------------------------------------------------        
    WEB-INF/web.xml             src/web.xml            :webxml

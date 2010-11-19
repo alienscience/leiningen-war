@@ -1,3 +1,7 @@
+0.0.12 2010-11-19
+  - Fixed XML in web.xml [Justin Kramer]
+  - Does not include scratch files in War file
+  - Small documentation changes
 0.0.9 2010-10-12
   - Compiles project before putting into war [Thomas Lee]
 0.0.8 2010-09-14
