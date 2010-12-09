@@ -1,4 +1,7 @@
-0.0.12 2010-11-19
+0.0.11 2010-12-09
+  - Does not archive hidden files or directories
+  - web.xml no longer goes to WEB-INF/classes
+0.0.10 2010-11-19
   - Fixed XML in web.xml [Justin Kramer]
   - Does not include scratch files in War file
   - Small documentation changes

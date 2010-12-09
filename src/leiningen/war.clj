@@ -17,6 +17,7 @@
 (defn unix-path [path] (re-gsub #"\\" "/" path))
 (defn has-trailing-slash [path] (re-find #"/$" path))
 (defn scratch-file? [path] (re-find #"[~#]$" path))
+(defn hidden? [path] (re-find #"/\." path))
 
 (defn find-files 
   "Returns all files in and below the given directory. If 
@@ -30,18 +31,28 @@ file object."
 (defn add-dir-to-jar 
   "Adds the given directory to the given jar output stream"
   [jar-os dir]
-  (if-not (contains? dirs-in-jar dir)
+  (if-not (or (contains? dirs-in-jar dir)
+              (hidden? dir))
     (do
       (set! dirs-in-jar (assoc dirs-in-jar dir true))
       (.putNextEntry jar-os (JarEntry. dir)))))
 
-(defn valid-file?
-  "Indicates if the given file is suitable for including in a jar"
-  [f]
-  (if (and (.exists f)
-           (not (scratch-file? (str f))))
-    true
-    false))
+(defn web-xml-in-classpath?
+  "Indicates if the given src file is web.xml and its destination is
+   the classpath"
+  [src-path dest-path]
+  (and (re-find #"/web.xml$" src-path)
+       (re-find #"/classes/" dest-path)))
+
+(defn valid-jar-entry?
+  "Indicates if the given file is suitable for including in a jar in the
+   given destination"
+  [f dest-path]
+  (let [src-path (str f)]
+    (and (.exists f)
+         (not (scratch-file? src-path))
+         (not (hidden? src-path))
+         (not (web-xml-in-classpath? src-path dest-path)))))
 
 (defn add-file-to-jar
   "Adds a file/directory to the given jar output stream"
@@ -54,7 +65,7 @@ file object."
 	  (let [dest-dir (no-double-slash (str dest-path "/"))]
 	    (add-dir-to-jar jar-os dest-dir))
 	  ;;--------
-	  (valid-file? f)
+	  (valid-jar-entry? f dest-path)
 	  (do
 	    (.putNextEntry jar-os (JarEntry. dest-path))
 	    (copy f jar-os)))))
