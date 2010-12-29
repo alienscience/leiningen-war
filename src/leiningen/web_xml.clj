@@ -7,7 +7,7 @@
 (defn webxml-path
   "Returns the path of the web.xml to use in the war file"
   [project]
-  (or (:webxml project) "src/web.xml"))
+  (or (-> project :war :webxml-path) "src/web.xml"))
 
 (defn- generate-webxml
   "Returns the xml for a web.xml file."

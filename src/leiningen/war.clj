@@ -137,14 +137,14 @@ file object."
 (defn war-name
   "Returns the name of the war file to create"
   [project]
-  (get project :war-name
-       (str (:name project) "-" (:version project) ".war")))
+  (or (-> project :war :name)
+      (str (:name project) "-" (:version project) ".war")))
 
 (defn web-content 
   "Returns the path of the directories containing web 
  content that will be put into the war file"
   [project]
-  (or (:web-content project) "src/html"))
+  (or (-> project :war :web-content) "src/html"))
 
 (defn check-exists
   "Check that the given file exists - warn if not"
@@ -161,9 +161,9 @@ file object."
 
    destination                 default source         project.clj 
    ---------------------------------------------------------------------        
-   WEB-INF/web.xml             src/web.xml            :webxml
+   WEB-INF/web.xml             src/web.xml            :war {:webxml}
    WEB-INF/classes             classes                :compile-path 
-   /                           src/html               :web-content
+   /                           src/html               :war {:web-content}
    WEB-INF/classes             resources              :resources-path
    WEB-INF/classes             src                    :source-path"
   [project & args]

@@ -1,4 +1,3 @@
-
 Leiningen war plugin
 ====================
 
@@ -24,7 +23,7 @@ Create a web.xml file if one does not already exist. For most non-trivial
 applications this file will need to be edited manually.
 
 By default the file is created in src/web.xml but this can be overidden
-by setting `:webxml` in project.clj.
+by setting `:webxml` in your `:war` configuration in project.clj.
 
 The servlet class is assumed to be the first entry in the
 `:aot` setting given in project.clj.
@@ -36,10 +35,10 @@ Create a $PROJECT-$VERSION.war file containing the following directory structure
 
     destination                   default source              project.clj 
     ----------------------------------------------------------------------------        
-    WEB-INF/web.xml               src/web.xml                 :webxml
+    WEB-INF/web.xml               src/web.xml                 :war {:webxml}
     WEB-INF/classes               classes                     :compile-path 
     WEB-INF/lib                   lib                         :library-path
-    /                             src/html                    :web-content
+    /                             src/html                    :war {:web-content}
     WEB-INF/classes               resources                   :resources-path
     WEB-INF/classes               src                         :source-path
 
@@ -55,9 +54,9 @@ Create a $PROJECT-$VERSION.war file containing the following directory structure
 
     destination                 default source         project.clj 
     ---------------------------------------------------------------------        
-    WEB-INF/web.xml             src/web.xml            :webxml
+    WEB-INF/web.xml             src/web.xml            :war {:webxml}
     WEB-INF/classes             classes                :compile-path 
-    /                           src/html               :web-content
+    /                           src/html               :war {:web-content}
     WEB-INF/classes             resources              :resources-path
     WEB-INF/classes             src                    :source-path
 
@@ -76,7 +75,7 @@ Simple Example
     WEB-INF/classes   <---- taken from classes
     index.html        <---- taken from src/html/index.html
 
-    lein uberwar will create a similar directory structure with the addition:
+`lein uberwar` will create a similar directory structure with the addition:
 
     WEB-INF/lib       <----  taken from lib
 
@@ -87,10 +86,10 @@ Overiding Defaults
       :dependencies [[org.clojure/clojure "1.2.0"]
                      [org.clojure/clojure-contrib "1.2.0"]]
       :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.11"]]
-      :webxml "war/example.xml"
+      :war {:webxml "war/example.xml"
+            :web-content "html"}
       :compile-path  "build"
       :library-path  "libs"
-      :web-content   "html"
       :resources-path "war/resources")
 
 `lein war` will create a war file with the following structure:
@@ -101,7 +100,7 @@ Overiding Defaults
     index.html                <---- taken from html/index.html
     WEB-INF/classes/templates <---- taken from war/resources/templates
 
-    lein uberwar will create a similar directory structure with the addition:
+`lein uberwar` will create a similar directory structure with the addition:
 
     WEB-INF/lib               <----  taken from libs
 
@@ -109,4 +108,5 @@ War name
 --------
 
 The default filename used for the .war file is $PROJECT-$VERSION.war.  You can change this
-by specifying `:war-name` in your project.clj.
+by specifying the `:name` key in your `:war` configuration in project.clj.  Don't forget to
+include ".war" on the end of the name.
