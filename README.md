@@ -1,0 +1,108 @@
+
+Leiningen war plugin
+====================
+
+This plugin is available at [http://clojars.org/](http://clojars.org/uk.org.alienscience/leiningen-war)
+
+    :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.11"]]
+
+An example application using the plugin is at:
+    [http://github.com/alienscience/compojure-war-example](http://github.com/alienscience/compojure-war-example)
+
+The best place for discussion and support is the Clojure web development google group:
+    [http://groups.google.com/group/clojure-web-dev](http://groups.google.com/group/clojure-web-dev)
+
+This plugin creates standard war files for use with java web application servers 
+and is not useful when developing for the Google App Engine. 
+
+This plugin adds three commands to leiningen:
+
+lein web-xml
+------------
+
+Create a web.xml file if one does not already exist. For most non-trivial
+applications this file will need to be edited manually.
+
+By default the file is created in src/web.xml but this can be overidden
+by setting `:webxml` in project.clj.
+
+The servlet class is assumed to be the first entry in the
+`:aot` setting given in project.clj.
+
+lein uberwar
+------------
+
+Create a $PROJECT-$VERSION.war file containing the following directory structure:
+
+    destination                   default source              project.clj 
+    ----------------------------------------------------------------------------        
+    WEB-INF/web.xml               src/web.xml                 :webxml
+    WEB-INF/classes               classes                     :compile-path 
+    WEB-INF/lib                   lib                         :library-path
+    /                             src/html                    :web-content
+    WEB-INF/classes               resources                   :resources-path
+    WEB-INF/classes               src                         :source-path
+
+Artifacts listed in `:dev-dependencies` will not copied into the war file
+
+lein war
+--------
+
+This command does not include dependencies in the war file and is intended for cases
+where the servlet container classpath is setup manually.
+
+Create a $PROJECT-$VERSION.war file containing the following directory structure:
+
+    destination                 default source         project.clj 
+    ---------------------------------------------------------------------        
+    WEB-INF/web.xml             src/web.xml            :webxml
+    WEB-INF/classes             classes                :compile-path 
+    /                           src/html               :web-content
+    WEB-INF/classes             resources              :resources-path
+    WEB-INF/classes             src                    :source-path
+
+Simple Example
+==============
+
+    (defproject example "0.0.1"
+      :dependencies [[org.clojure/clojure "1.2.0"]
+                     [org.clojure/clojure-contrib "1.2.0"]]
+      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.11"]])
+
+`lein war` will create a war file with the following structure:
+
+    WEB-INF/
+    WEB-INF/web.xml   <--- taken from src/web.xml
+    WEB-INF/classes   <---- taken from classes
+    index.html        <---- taken from src/html/index.html
+
+    lein uberwar will create a similar directory structure with the addition:
+
+    WEB-INF/lib       <----  taken from lib
+
+Overiding Defaults
+==================
+    
+    (defproject example "0.0.1"
+      :dependencies [[org.clojure/clojure "1.2.0"]
+                     [org.clojure/clojure-contrib "1.2.0"]]
+      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.11"]]
+      :webxml "war/example.xml"
+      :compile-path  "build"
+      :library-path  "libs"
+      :web-content   "html"
+      :resources-path "war/resources")
+
+`lein war` will create a war file with the following structure:
+
+    WEB-INF/
+    WEB-INF/web.xml           <--- taken from war/example.xml
+    WEB-INF/classes           <---- taken from build
+    index.html                <---- taken from html/index.html
+    WEB-INF/classes/templates <---- taken from war/resources/templates
+
+    lein uberwar will create a similar directory structure with the addition:
+
+    WEB-INF/lib               <----  taken from libs
+
+
