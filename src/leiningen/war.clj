@@ -137,8 +137,8 @@ file object."
 (defn war-name
   "Returns the name of the war file to create"
   [project]
-  (str (:name project) "-" (:version project) ".war"))
-
+  (get project :war-name
+       (str (:name project) "-" (:version project) ".war")))
 
 (defn web-content 
   "Returns the path of the directories containing web 
@@ -156,7 +156,9 @@ file object."
   "This command does not include dependencies in the war file and is intended for cases
    where the servlet container classpath is setup manually.
 
-   Create a $PROJECT-$VERSION.war file containing the following directory structure:
+   Create a $PROJECT-$VERSION.war (unless :war-name is specified in project)
+   file containing the following directory structure:
+
    destination                 default source         project.clj 
    ---------------------------------------------------------------------        
    WEB-INF/web.xml             src/web.xml            :webxml

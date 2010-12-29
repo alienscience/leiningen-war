@@ -105,4 +105,8 @@ Overiding Defaults
 
     WEB-INF/lib               <----  taken from libs
 
+War name
+--------
 
+The default filename used for the .war file is $PROJECT-$VERSION.war.  You can change this
+by specifying `:war-name` in your project.clj.
