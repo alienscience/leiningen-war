@@ -5,11 +5,9 @@ This plugin is available at [http://clojars.org/](http://clojars.org/uk.org.alie
 
     :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.11"]]
 
-An example application using the plugin is at:
-    [http://github.com/alienscience/compojure-war-example](http://github.com/alienscience/compojure-war-example)
+An example application using the plugin is at: [http://github.com/alienscience/compojure-war-example](http://github.com/alienscience/compojure-war-example)
 
-The best place for discussion and support is the Clojure web development google group:
-    [http://groups.google.com/group/clojure-web-dev](http://groups.google.com/group/clojure-web-dev)
+The best place for discussion and support is the Clojure web development google group: [http://groups.google.com/group/clojure-web-dev](http://groups.google.com/group/clojure-web-dev)
 
 This plugin creates standard war files for use with java web application servers 
 and is not useful when developing for the Google App Engine. 
@@ -31,7 +29,7 @@ The servlet class is assumed to be the first entry in the
 lein uberwar
 ------------
 
-Create a $PROJECT-$VERSION.war file containing the following directory structure:
+Create a war file containing the following directory structure:
 
     destination                   default source              project.clj 
     ----------------------------------------------------------------------------        
@@ -42,7 +40,9 @@ Create a $PROJECT-$VERSION.war file containing the following directory structure
     WEB-INF/classes               resources                   :resources-path
     WEB-INF/classes               src                         :source-path
 
-Artifacts listed in `:dev-dependencies` will not copied into the war file
+Artifacts listed in `:dev-dependencies` will not copied into the war file. The name
+of the war file defaults to $PROJECT-$VERSION.war, however, it can be overridden
+by setting `:war :name` in project.clj.
 
 lein war
 --------
@@ -50,7 +50,7 @@ lein war
 This command does not include dependencies in the war file and is intended for cases
 where the servlet container classpath is setup manually.
 
-Create a $PROJECT-$VERSION.war file containing the following directory structure:
+Create a war file containing the following directory structure:
 
     destination                 default source         project.clj 
     ---------------------------------------------------------------------        
