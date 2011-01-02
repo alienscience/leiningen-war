@@ -5,7 +5,7 @@ This plugin is available at [http://clojars.org/](http://clojars.org/uk.org.alie
 
     :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.12"]]
 
-An example application using the plugin is at: [http://github.com/alienscience/compojure-war-example](http://github.com/alienscience/compojure-war-example)
+An example application using the plugin is at: [http://github.com/alienscience/compojure-war-example](http://github.com/alienscience/compojure-war-example). The [lein-ring](https://github.com/weavejester/lein-ring) plugin, and the [cake](https://github.com/ninjudd/cake) build tool are also able to produce WAR files.
 
 The best place for discussion and support is the Clojure web development google group: [http://groups.google.com/group/clojure-web-dev](http://groups.google.com/group/clojure-web-dev)
 
