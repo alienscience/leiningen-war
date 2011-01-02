@@ -3,7 +3,7 @@ Leiningen war plugin
 
 This plugin is available at [http://clojars.org/](http://clojars.org/uk.org.alienscience/leiningen-war)
 
-    :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.11"]]
+    :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.12"]]
 
 An example application using the plugin is at: [http://github.com/alienscience/compojure-war-example](http://github.com/alienscience/compojure-war-example)
 
@@ -66,7 +66,7 @@ Simple Example
     (defproject example "0.0.1"
       :dependencies [[org.clojure/clojure "1.2.0"]
                      [org.clojure/clojure-contrib "1.2.0"]]
-      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.11"]])
+      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.12"]])
 
 `lein war` will create a war file with the following structure:
 
@@ -85,7 +85,7 @@ Overiding Defaults
     (defproject example "0.0.1"
       :dependencies [[org.clojure/clojure "1.2.0"]
                      [org.clojure/clojure-contrib "1.2.0"]]
-      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.11"]]
+      :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.12"]]
       :war {:webxml "war/example.xml"
             :web-content "html"}
       :compile-path  "build"
