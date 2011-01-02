@@ -1,3 +1,7 @@
+0.0.12 2011-01-02
+  - .gitignore [Seth Buntin]
+  - :war specific settings [Seth Buntin]
+  - README.md [Seth Buntin]
 0.0.11 2010-12-09
   - Does not archive hidden files or directories
   - web.xml no longer goes to WEB-INF/classes
