@@ -17,7 +17,7 @@
 (defn unix-path [path] (re-gsub #"\\" "/" path))
 (defn has-trailing-slash [path] (re-find #"/$" path))
 (defn scratch-file? [path] (re-find #"[~#]$" path))
-(defn hidden? [path] (re-find #"/\." path))
+(defn hidden? [path] (re-find #"^\." (last (re-split #"/" path))))
 
 (defn find-files 
   "Returns all files in and below the given directory. If 
