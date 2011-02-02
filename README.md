@@ -1,16 +1,18 @@
 Leiningen war plugin
 ====================
 
+If you want to develop Ring applications and deploy WAR files the [lein-ring](https://github.com/weavejester/lein-ring) plugin is recommended for most purposes. The [cake](https://github.com/ninjudd/cake) build tool is also able to produce WAR files. However, this plugin is still being actively supported for those developers that use it.
+
+This plugin creates standard war files for use with java web application servers 
+and is not useful when developing for the Google App Engine. 
+
 This plugin is available at [http://clojars.org/](http://clojars.org/uk.org.alienscience/leiningen-war)
 
     :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.12"]]
 
-An example application using the plugin is at: [http://github.com/alienscience/compojure-war-example](http://github.com/alienscience/compojure-war-example). The [lein-ring](https://github.com/weavejester/lein-ring) plugin, and the [cake](https://github.com/ninjudd/cake) build tool are also able to produce WAR files.
-
+An example application using the plugin is at: [http://github.com/alienscience/compojure-war-example](http://github.com/alienscience/compojure-war-example).
+ 
 The best place for discussion and support is the Clojure web development google group: [http://groups.google.com/group/clojure-web-dev](http://groups.google.com/group/clojure-web-dev)
-
-This plugin creates standard war files for use with java web application servers 
-and is not useful when developing for the Google App Engine. 
 
 This plugin adds three commands to leiningen:
 
