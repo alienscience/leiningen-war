@@ -8,7 +8,7 @@ and is not useful when developing for the Google App Engine.
 
 This plugin is available at [http://clojars.org/](http://clojars.org/uk.org.alienscience/leiningen-war)
 
-    :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.12"]]
+    :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.13"]]
 
 An example application using the plugin is at: [http://github.com/alienscience/compojure-war-example](http://github.com/alienscience/compojure-war-example).
  
