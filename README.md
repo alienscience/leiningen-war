@@ -1,7 +1,7 @@
 Leiningen war plugin
 ====================
 
-If you want to develop Ring applications and deploy WAR files the [lein-ring](https://github.com/weavejester/lein-ring) plugin is recommended for most purposes. The [cake](https://github.com/ninjudd/cake) build tool is also able to produce WAR files. However, this plugin is still being actively supported for those developers that use it.
+Leiningen-war remains alive and supported. I'm happy to fix bugs and add features when requested - I use the plugin myself and will continue to do so. However, people new to Java web development were having problems with Leiningen-war since it does everything in the Java style with XML config files and an unfamiliar directory structure. This approach was obviously a barrier for newcomers using Clojure who wanted to create a deployable web application. The [lein-ring](https://github.com/weavejester/lein-ring) plugin is a much easier plugin to use, it integrates well with Ring and it has extra features. It is my hope was that all new users start with [lein-ring](https://github.com/weavejester/lein-ring). 
 
 This plugin creates standard war files for use with java web application servers 
 and is not useful when developing for the Google App Engine. 
