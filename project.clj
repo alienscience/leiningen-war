@@ -1,4 +1,4 @@
-(defproject uk.org.alienscience/leiningen-war "0.0.12"
+(defproject uk.org.alienscience/leiningen-war "0.0.13"
   :description "Leiningen war plugin."
   :dependencies []
   :dev-dependencies [[org.clojure/clojure "1.2.0"]
