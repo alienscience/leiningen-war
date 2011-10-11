@@ -23,7 +23,7 @@ Create a web.xml file if one does not already exist. For most non-trivial
 applications this file will need to be edited manually.
 
 By default the file is created in src/web.xml but this can be overidden
-by setting `:webxml` in your `:war` configuration in project.clj.
+by setting `:webxml-path` in your `:war` configuration in project.clj.
 
 The servlet class is assumed to be the first entry in the
 `:aot` setting given in project.clj.
@@ -35,7 +35,7 @@ Create a war file containing the following directory structure:
 
     destination                   default source              project.clj 
     ----------------------------------------------------------------------------        
-    WEB-INF/web.xml               src/web.xml                 :war {:webxml}
+    WEB-INF/web.xml               src/web.xml                 :war {:webxml-path}
     WEB-INF/classes               classes                     :compile-path 
     WEB-INF/lib                   lib                         :library-path
     /                             src/html                    :war {:web-content}
@@ -56,7 +56,7 @@ Create a war file containing the following directory structure:
 
     destination                 default source         project.clj 
     ---------------------------------------------------------------------        
-    WEB-INF/web.xml             src/web.xml            :war {:webxml}
+    WEB-INF/web.xml             src/web.xml            :war {:webxml-path}
     WEB-INF/classes             classes                :compile-path 
     /                           src/html               :war {:web-content}
     WEB-INF/classes             resources              :resources-path
@@ -88,7 +88,7 @@ Overiding Defaults
       :dependencies [[org.clojure/clojure "1.2.0"]
                      [org.clojure/clojure-contrib "1.2.0"]]
       :dev-dependencies [[uk.org.alienscience/leiningen-war "0.0.12"]]
-      :war {:webxml "war/example.xml"
+      :war {:webxml-path "war/example.xml"
             :web-content "html"}
       :compile-path  "build"
       :library-path  "libs"
